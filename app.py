@@ -16,6 +16,8 @@ def post():
     KofiToken = os.getenv('KOFITOKEN')
     ShowAmount = os.getenv('SHOWAMOUNT')
     color = os.getenv('EMBEDCOLOR')
+    color = color.replace("#", "")
+    color = int(color, 16)
 
     webhook = DiscordWebhook(url = os.getenv('WEBHOOK'))
     # Check if the post from Ko-Fi
@@ -26,7 +28,7 @@ def post():
             
         embed = DiscordEmbed(title='**New Ko-Fi Supporter!**', color=color)
         embed.description = f'Thanks {user} for your Support'
-        if ShowAmount == True :
+        if ShowAmount == 'True' :
             embed.description = f'Thank {user}, for your support of ${amount}'
         
         # Send the webhook
@@ -37,8 +39,7 @@ def post():
 
 
 if __name__ == "__main__":
-    # app.run(
-    #     host=os.getenv("HOST", "0.0.0.0"),
-    #     port=os.getenv("PORT", 8000),
-    # )
-    app.run(debug=True)
+    app.run(
+        host=os.getenv("HOST", "0.0.0.0"),
+        port=os.getenv("PORT", 8000),
+    )
